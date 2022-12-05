@@ -6,6 +6,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Student {
 	private String name;
 	private int rollno;
+	private String branch;
+	public String getBranch() {
+		return branch;
+	}
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
 	public String getName() {
 		return name;
 	}
