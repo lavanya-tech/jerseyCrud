@@ -33,6 +33,9 @@ public class Prohibition {
             this.operations = operations;
         }
     }
+    public Prohibition() {
+    	super();
+    }
 
     public String getSubject() {
         return subject;

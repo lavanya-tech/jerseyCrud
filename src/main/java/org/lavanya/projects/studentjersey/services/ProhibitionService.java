@@ -18,20 +18,20 @@ public class ProhibitionService {
 		return store.getAll();
 	}
 
-	public Prohibition get(String prohibitionName) throws PMException {
-		return store.get(prohibitionName);
+	public Prohibition get(int prohibitionId) throws PMException {
+		return store.get(prohibitionId);
 	}
 
-	public List<Prohibition> getProhibitionsFor(String subject) throws PMException {
-		return store.getProhibitionsFor(subject);
+	public List<Prohibition> getProhibitionsFor(String prohibitionsubject) throws PMException {
+		return store.getProhibitionsFor(prohibitionsubject);
 	}
 
-	public void update(String prohibitionName, Prohibition prohibition) throws PMException {
-		store.update(prohibitionName, prohibition);
+	public void update(int prohibitionId, Prohibition prohibition) throws PMException {
+		store.update(prohibitionId, prohibition);
 		
 	}
 
-	public void delete(String prohibitionName) throws PMException {
-		store.delete(prohibitionName);
+	public void delete(int prohibitionId) throws PMException {
+		store.delete(prohibitionId);
 	}
 }

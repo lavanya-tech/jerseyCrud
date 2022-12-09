@@ -28,34 +28,35 @@ public class ProhibitionResource {
 	}
 	
 	@POST
-	@Path("prohibiton")
+	@Path("prohibition")
 	public void add(Prohibition prohibition) throws PMException {
 		System.out.println("entered resource");
 			service.add(prohibition);
 	}
 	
 	@GET
-	@Path("name/{prohibitionName}")
-	public Prohibition get(@PathParam("prohibitionName") String prohibitionName) throws PMException {
-		return service.get(prohibitionName);
+	@Path("prohibition/id/{prohibitionId}")
+	public Prohibition get(@PathParam("prohibitionId") int prohibitionId) throws PMException {
+		return service.get(prohibitionId);
 	}
 
 	@GET
-	@Path("subject/{subject}")
-	public List<Prohibition> getProhibitionsFor(@PathParam("subject") String subject) throws PMException {
-		return service.getProhibitionsFor(subject);
+	@Path("prohibition/subject/{prohibitionSubject}")
+	public List<Prohibition> getProhibitionsFor(@PathParam("prohibitionSubject") String prohibitionSubject) throws PMException {
+		return service.getProhibitionsFor(prohibitionSubject);
 	}
 
 	@PUT
-	@Path("prohibiton/{prohibitionName}")
-	public void update(@PathParam("ProhibitionName") String prohibitionName, Prohibition prohibition) throws PMException {
-		service.update(prohibitionName, prohibition);
+	@Path("prohibition/{prohibitionId}")
+	public void update(@PathParam("prohibitionId") int prohibitionId, Prohibition prohibition) throws PMException {
+		System.out.println(prohibitionId);
+		service.update(prohibitionId, prohibition);
 		
 	}
 
 	@DELETE
-	@Path("prohibiton/{prohibitionName}")
-	public void delete(@PathParam("prohibitionName") String prohibitionName) throws PMException {
-		service.delete(prohibitionName);
+	@Path("prohibition/{prohibitionId}")
+	public void delete(@PathParam("prohibitionId") int prohibitionId) throws PMException {
+		service.delete(prohibitionId);
 	}
 }

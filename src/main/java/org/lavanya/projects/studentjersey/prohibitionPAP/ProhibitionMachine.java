@@ -26,11 +26,11 @@ public interface ProhibitionMachine {
     /**
      * Retrieve a Prohibition and return the Object representing it.
      *
-     * @param prohibitionName The name of the Prohibition to retrieve.
-     * @return the Prohibition with the given name.
-     * @throws PMException if there is an error getting the prohibition with the given name.
+     * @param prohibitionId The id of the Prohibition to retrieve.
+     * @return the Prohibition with the given id.
+     * @throws PMException if there is an error getting the prohibition with the given id.
      */
-    Prohibition get(String prohibitionName) throws PMException;
+    Prohibition get(int prohibitionId) throws PMException;
 
     /**
      * Get all of the prohibitions a given entity is the direct subject of.  The subject can be a user, user attribute,
@@ -41,19 +41,19 @@ public interface ProhibitionMachine {
     List<Prohibition> getProhibitionsFor(String subject) throws PMException;
 
     /**
-     * Update the prohibition with the given name. Prohibition names cannot be updated.
+     * Update the prohibition with the given prohibitionId. Prohibition names cannot be updated.
      *
-     * @param prohibitionName the name of the prohibition to update.
+     * @param prohibitionId the name of the prohibition to update.
      * @param prohibition The prohibition to update.
      * @throws PMException if there is an error updating the prohibition.
      */
-    void update(String prohibitionName, Prohibition prohibition) throws PMException;
+    void update(int prohibitionId, Prohibition prohibition) throws PMException;
 
     /**
      * Delete the prohibition, and remove it from the data structure.
      *
-     * @param prohibitionName The name of the prohibition to delete.
+     * @param prohibitionId The Id of the prohibition to delete.
      * @throws PMException if there is an error deleting the prohibition.
      */
-    void delete(String prohibitionName) throws PMException;
+    void delete(int prohibitionId) throws PMException;
 }
