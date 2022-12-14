@@ -8,7 +8,7 @@ import org.lavanya.projects.studentjersey.operations.OperationSet;
 /**
  * Object representing a Prohibition.
  */
-public class Prohibition {
+public class Prohibition{
 
 	private int id;
     private String       name;
@@ -18,26 +18,23 @@ public class Prohibition {
     private Boolean status;
 
     public Prohibition(int id, String name, String subject, OperationSet operations,Date created_at, Boolean status) {
-        if (subject == null) {
-            throw new IllegalArgumentException("Prohibition subject cannot be null");
-        }
-
         this.name = name;
         this.subject = subject;
         this.created_at = created_at;
         this.status = status;
         this.id = id;
-        if (operations == null) {
-            this.operations = new OperationSet();
-        } else {
-            this.operations = operations;
-        }
+        this.operations = operations;
     }
     public Prohibition() {
     	super();
     }
 
-    public String getSubject() {
+    public Prohibition(String name, String subject, OperationSet os) {
+    	this.name = name;
+        this.subject = subject;
+        this.operations = os;
+	}
+	public String getSubject() {
         return subject;
     }
 
@@ -98,27 +95,5 @@ public class Prohibition {
 		this.id = id;
 	}
 
-	public static class Builder {
-
-		private int id;
-	    private String       name;
-	    private String      subject;
-	    private OperationSet operations;
-	    private Date created_at;
-	    private Boolean status;
-
-        public Builder(int id,String name, String subject, OperationSet operations,Date created_at, Boolean status) {
-            this.id = id;
-        	this.name = name;
-            this.subject = subject;
-            this.operations = operations;
-            this.created_at = created_at;
-            this.status = status;
-        }
-
-        public Prohibition build() {
-            return new Prohibition(id, name, subject, operations, created_at, status);
-        }
-    }
 }
 

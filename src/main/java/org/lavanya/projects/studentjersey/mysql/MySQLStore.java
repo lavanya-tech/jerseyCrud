@@ -1,6 +1,7 @@
 package org.lavanya.projects.studentjersey.mysql;
 
 import java.sql.Connection;
+import static org.junit.jupiter.api.Assertions.*;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,8 +29,8 @@ public class MySQLStore implements ProhibitionMachine{
 		String password = "Lavanya@2002#";
 		try
 		{
-				Class.forName("com.mysql.jdbc.Driver"); 
-				con = DriverManager.getConnection(url,username,password);
+			Class.forName("com.mysql.jdbc.Driver"); 
+			con = DriverManager.getConnection(url,username,password);
 		}
 		catch(Exception e)
 		{
@@ -38,20 +39,31 @@ public class MySQLStore implements ProhibitionMachine{
 	}
 
 	@Override
-	public void add(Prohibition prohibition) throws PMException {
+	public int add(Prohibition prohibition) throws PMException {
 		String sql = "insert into prohibitions(name,subject,operations,status) values(?,?,?,?)";
-		try(PreparedStatement st = con.prepareStatement(sql);)
-		{	
+		int last_id = 0;
+		try(PreparedStatement st = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);)
+		{
 			st.setString(1,prohibition.getName());
 			st.setString(2, prohibition.getSubject());
 			st.setObject(3, hashSetToJSON(prohibition.getOperations()));
 			st.setBoolean(4, true);
 			st.executeUpdate();
+		    try (ResultSet keys = st.getGeneratedKeys()) 
+		    {
+		    	if(keys.next())
+		    		last_id = keys.getInt(1);
+		    }
+		    catch(Exception e)
+			{
+				System.out.println(e);
+			}
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
 		}
+		return last_id;
 	}
 	
 	public static String hashSetToJSON(Set<String> set) throws JsonProcessingException {
@@ -149,5 +161,5 @@ public class MySQLStore implements ProhibitionMachine{
 		{
 			System.out.println(e);
 		}
-	}	
+	}
 }

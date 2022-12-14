@@ -11,9 +11,10 @@ public interface ProhibitionMachine {
      * Create a new prohibition.
      *
      * @param prohibition The prohibition to be created.
+     * @return id of the prohibition created.
      * @throws PMException if there is an error creating a prohibition.
      */
-    void add(Prohibition prohibition) throws PMException;
+    int add(Prohibition prohibition) throws PMException;
 
     /**
      * Get a list of all prohibitions
