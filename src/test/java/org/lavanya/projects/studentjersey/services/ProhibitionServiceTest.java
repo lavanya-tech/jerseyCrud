@@ -25,30 +25,29 @@ class ProhibitionServiceTest {
 	@Test
 	void testAddwithNameNull() throws PMException {
 		Prohibition p_added = new Prohibition(null,"subject3",new OperationSet("has_access"));
-		int id = service.add(p_added);
-		assertNull(service.get(id));
+		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		assertEquals("no name was provided when creating a prohibition", exception.getMessage());
 	}
 	
 	@Test
 	void testAddwithSubjectNull() throws PMException {
 		Prohibition p_added = new Prohibition("pavani",null,new OperationSet("has_access"));
-		int id = service.add(p_added);
-		assertNull(service.get(id));
+		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		assertEquals("no subject was provided when creating a prohibition", exception.getMessage());
 	}
 
 	@Test
 	void testAddwithOperationInvalid() throws PMException {
 		Prohibition p_added = new Prohibition("pavan","subject3",new OperationSet("invalid"));
-		int id = service.add(p_added);
-		assertNull(service.get(id));
+		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		assertEquals("invalid operations were provided when creating a prohibition", exception.getMessage());
 	}
 
-	//Can the db have empty operation set?
 	@Test
 	void testAddwithOperationNull() throws PMException {
 		Prohibition p_added = new Prohibition("sravani","subject3",null);
-		int id = service.add(p_added);
-		assertNull(service.get(id));
+		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		assertEquals("no operations were provided when creating a prohibition", exception.getMessage());
 	}
 	
 	@Test
@@ -88,7 +87,8 @@ class ProhibitionServiceTest {
 		Prohibition p_added = new Prohibition("saranya","subject3",new OperationSet("has_access"));
 		int id = service.add(p_added);
 		service.delete(id);
-		assertNull(service.get(id));
+		Exception exception = assertThrows(Exception.class, () -> service.get(id));
+		assertEquals("Invalid Id", exception.getMessage());
 	}
 
 }
