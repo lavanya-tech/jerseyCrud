@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.lavanya.projects.studentjersey.exceptions.PMException;
 import org.lavanya.projects.studentjersey.models.Prohibition;
+import org.lavanya.projects.studentjersey.operations.OperationSet;
 
 public interface ProhibitionMachine {
 	/**
 	 * Create a new prohibition.
 	 *
-	 * @param prohibition The prohibition to be created.
+	 * @param name, subject, operations of the prohibition to be created.
 	 * @return id of the prohibition created.
 	 * @throws PMException if there is an error creating a prohibition.
 	 */
-	int add(Prohibition prohibition) throws PMException;
+	int add(String name, String subject, OperationSet operations) throws PMException;
 
 	/**
 	 * Get a list of all prohibitions
@@ -47,10 +48,10 @@ public interface ProhibitionMachine {
 	 * be updated.
 	 *
 	 * @param prohibitionId the name of the prohibition to update.
-	 * @param prohibition   The prohibition to update.
+	 * @param name,         subject, operations of the prohibition to update.
 	 * @throws PMException if there is an error updating the prohibition.
 	 */
-	void update(int prohibitionId, Prohibition prohibition) throws PMException;
+	void update(int prohibitionId, String name, String subject, OperationSet operations) throws PMException;
 
 	/**
 	 * Delete the prohibition, and remove it from the data structure.

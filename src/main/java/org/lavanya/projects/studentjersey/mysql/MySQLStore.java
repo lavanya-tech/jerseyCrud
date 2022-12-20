@@ -36,13 +36,13 @@ public class MySQLStore implements ProhibitionMachine {
 	}
 
 	@Override
-	public int add(Prohibition prohibition) throws PMException {
+	public int add(String name, String subject, OperationSet operations) throws PMException {
 		String sql = "insert into prohibitions(name,subject,operations,status) values(?,?,?,?)";
 		int last_id = 0;
 		try (PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
-			st.setString(1, prohibition.getName());
-			st.setString(2, prohibition.getSubject());
-			st.setObject(3, hashSetToJSON(prohibition.getOperations()));
+			st.setString(1, name);
+			st.setString(2, subject);
+			st.setObject(3, hashSetToJSON(operations));
 			st.setBoolean(4, true);
 			st.executeUpdate();
 			try (ResultSet keys = st.getGeneratedKeys()) {
@@ -114,12 +114,12 @@ public class MySQLStore implements ProhibitionMachine {
 	}
 
 	@Override
-	public void update(int prohibitionId, Prohibition prohibition) throws PMException {
+	public void update(int prohibitionId, String name, String subject, OperationSet operations) throws PMException {
 		String sql = "update prohibitions set name=?, subject=?, operations=? where id=" + prohibitionId;
 		try (PreparedStatement st = con.prepareStatement(sql);) {
-			st.setString(1, prohibition.getName());
-			st.setString(2, prohibition.getSubject());
-			st.setObject(3, hashSetToJSON(prohibition.getOperations()));
+			st.setString(1, name);
+			st.setString(2, subject);
+			st.setObject(3, hashSetToJSON(operations));
 			st.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);

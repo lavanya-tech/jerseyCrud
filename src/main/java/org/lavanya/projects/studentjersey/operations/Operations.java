@@ -5,15 +5,13 @@ public class Operations {
 	public static final String HAS_ACCESS = "has_access";
 	public static final String NO_ACCESS = "no_access";
 
-	public static String toOperations(String op) {
-		op.toLowerCase();
+	public static Boolean toOperations(String op) {
 		switch (op) {
 		case "has_access":
-			return HAS_ACCESS;
 		case "no_access":
-			return NO_ACCESS;
+			return true;
 		default:
-			return null;
+			return false;
 		}
 	}
 }

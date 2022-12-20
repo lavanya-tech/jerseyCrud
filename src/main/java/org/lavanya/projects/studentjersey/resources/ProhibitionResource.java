@@ -30,7 +30,7 @@ public class ProhibitionResource {
 	@POST
 	@Path("prohibition")
 	public int add(Prohibition prohibition) throws PMException {
-		return service.add(prohibition);
+		return service.add(prohibition.getName(),prohibition.getSubject(),prohibition.getOperations());
 	}
 
 	@GET
@@ -49,7 +49,7 @@ public class ProhibitionResource {
 	@PUT
 	@Path("prohibition/{prohibitionId}")
 	public void update(@PathParam("prohibitionId") int prohibitionId, Prohibition prohibition) throws PMException {
-		service.update(prohibitionId, prohibition);
+		service.update(prohibitionId, prohibition.getName(),prohibition.getSubject(),prohibition.getOperations());
 
 	}
 

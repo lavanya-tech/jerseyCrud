@@ -13,40 +13,50 @@ class ProhibitionServiceTest {
 
 	@Test
 	void testAdd() throws PMException {
-		Prohibition p_added = new Prohibition("Lavanya", "subject3", new OperationSet("has_access"));
-		int id = service.add(p_added);
+		String name = "Lavanya";
+		String subject = "subject3";
+		OperationSet operations = new OperationSet("has_access");
+		int id = service.add(name, subject, operations);
 		assertNotNull(service.get(id));
 		Prohibition p_found = service.get(id);
-		assertEquals(p_added.getName(), p_found.getName());
-		assertEquals(p_added.getOperations(), p_found.getOperations());
-		assertEquals(p_added.getSubject(), p_found.getSubject());
+		assertEquals(name, p_found.getName());
+		assertEquals(operations, p_found.getOperations());
+		assertEquals(subject, p_found.getSubject());
 	}
 
 	@Test
 	void testAddwithNameNull() throws PMException {
-		Prohibition p_added = new Prohibition(null, "subject3", new OperationSet("has_access"));
-		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		String name = null;
+		String subject = "subject3";
+		OperationSet operations = new OperationSet("has_access");
+		Exception exception = assertThrows(Exception.class, () -> service.add(name, subject, operations));
 		assertEquals("no name was provided when creating a prohibition", exception.getMessage());
 	}
 
 	@Test
 	void testAddwithSubjectNull() throws PMException {
-		Prohibition p_added = new Prohibition("pavani", null, new OperationSet("has_access"));
-		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		String name = "pavani";
+		String subject = null;
+		OperationSet operations = new OperationSet("has_access");
+		Exception exception = assertThrows(Exception.class, () -> service.add(name, subject, operations));
 		assertEquals("no subject was provided when creating a prohibition", exception.getMessage());
 	}
 
 	@Test
 	void testAddwithOperationInvalid() throws PMException {
-		Prohibition p_added = new Prohibition("pavan", "subject3", new OperationSet("invalid"));
-		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		String name = "pavan";
+		String subject = "subject3";
+		OperationSet operations = new OperationSet("invalid");
+		Exception exception = assertThrows(Exception.class, () -> service.add(name, subject, operations));
 		assertEquals("invalid operations were provided when creating a prohibition", exception.getMessage());
 	}
 
 	@Test
 	void testAddwithOperationNull() throws PMException {
-		Prohibition p_added = new Prohibition("sravani", "subject3", null);
-		Exception exception = assertThrows(Exception.class, () -> service.add(p_added));
+		String name = "sravani";
+		String subject = "subject3";
+		OperationSet operations = null;
+		Exception exception = assertThrows(Exception.class, () -> service.add(name, subject, operations));
 		assertEquals("no operations were provided when creating a prohibition", exception.getMessage());
 	}
 
@@ -57,35 +67,43 @@ class ProhibitionServiceTest {
 
 	@Test
 	void testGet() throws PMException {
-		Prohibition p_added = new Prohibition("Nidhi", "subject4", new OperationSet("no_access"));
-		int id = service.add(p_added);
+		String name = "Nidhi";
+		String subject = "subject4";
+		OperationSet operations = new OperationSet("no_access");
+		int id = service.add(name, subject, operations);
 		assertNotNull(service.get(id));
 		Prohibition p_found = service.get(id);
-		assertEquals(p_added.getName(), p_found.getName());
-		assertEquals(p_added.getOperations(), p_found.getOperations());
-		assertEquals(p_added.getSubject(), p_found.getSubject());
+		assertEquals(name, p_found.getName());
+		assertEquals(operations, p_found.getOperations());
+		assertEquals(subject, p_found.getSubject());
 	}
 
 	@Test
 	void testGetProhibitionsFor() throws PMException {
-		Prohibition p_added = new Prohibition("Nithya", "subject10", new OperationSet("has_access"));
-		service.add(p_added);
-		assertNotEquals(0, service.getProhibitionsFor(p_added.getSubject()).size());
+		String name = "nithya";
+		String subject = "subject10";
+		OperationSet operations = new OperationSet("has_access");
+		service.add(name, subject, operations);
+		assertNotEquals(0, service.getProhibitionsFor(subject).size());
 	}
 
 	@Test
 	void testUpdate() throws PMException {
-		Prohibition p_added = new Prohibition("ram", "subject9", new OperationSet("no_access"));
-		int id = service.add(p_added);
-		p_added.setOperations(new OperationSet("has_access"));
-		service.update(id, p_added);
-		assertEquals(service.get(id).getOperations(), p_added.getOperations());
+		String name = "ram";
+		String subject = "subject9";
+		OperationSet operations = new OperationSet("no_access");
+		int id = service.add(name, subject, operations);
+		operations = new OperationSet("has_access");
+		service.update(id, name, subject, operations);
+		assertEquals(service.get(id).getOperations(), operations);
 	}
 
 	@Test
 	void testDelete() throws PMException {
-		Prohibition p_added = new Prohibition("saranya", "subject3", new OperationSet("has_access"));
-		int id = service.add(p_added);
+		String name = "saranya";
+		String subject = "subject3";
+		OperationSet operations = new OperationSet("has_access");
+		int id = service.add(name, subject, operations);
 		service.delete(id);
 		Exception exception = assertThrows(Exception.class, () -> service.get(id));
 		assertEquals("Invalid Id", exception.getMessage());
