@@ -1,16 +1,15 @@
 package org.lavanya.projects.studentjersey.exceptions;
 
-
 public class PMException extends Exception {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String message;
+	private String message;
 
-    public PMException(String msg) {
-        this.message = msg;
-    }
+	public PMException(String msg) {
+		this.message = msg;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 }

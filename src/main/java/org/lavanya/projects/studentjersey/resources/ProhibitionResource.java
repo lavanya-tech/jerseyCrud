@@ -21,18 +21,18 @@ import org.lavanya.projects.studentjersey.services.ProhibitionService;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProhibitionResource {
 	ProhibitionService service = new ProhibitionService();
-	
+
 	@GET
 	public List<Prohibition> getAll() throws PMException {
 		return service.getAll();
 	}
-	
+
 	@POST
 	@Path("prohibition")
 	public int add(Prohibition prohibition) throws PMException {
 		return service.add(prohibition);
 	}
-	
+
 	@GET
 	@Path("prohibition/id/{prohibitionId}")
 	public Prohibition get(@PathParam("prohibitionId") int prohibitionId) throws PMException {
@@ -41,7 +41,8 @@ public class ProhibitionResource {
 
 	@GET
 	@Path("prohibition/subject/{prohibitionSubject}")
-	public List<Prohibition> getProhibitionsFor(@PathParam("prohibitionSubject") String prohibitionSubject) throws PMException {
+	public List<Prohibition> getProhibitionsFor(@PathParam("prohibitionSubject") String prohibitionSubject)
+			throws PMException {
 		return service.getProhibitionsFor(prohibitionSubject);
 	}
 
@@ -49,7 +50,7 @@ public class ProhibitionResource {
 	@Path("prohibition/{prohibitionId}")
 	public void update(@PathParam("prohibitionId") int prohibitionId, Prohibition prohibition) throws PMException {
 		service.update(prohibitionId, prohibition);
-		
+
 	}
 
 	@DELETE
